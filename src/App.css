@@ -1,38 +1,269 @@
-.App {
-  text-align: center;
+* {
+    padding: 0;
+    margin: 0;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+li {
+    list-style: none;
+}
+.container-contatos {
+    background-image: url('../src//img/entregador.png');
+    background-repeat: no-repeat;
+    background-position: right;
+    background-size: contain;
+    text-align: center;
+    font-family: 'Times New Roman', Times, serif;
+    width: 100%;
+    font-size: 20px;
+    height: 450px;
+}
+.fixed-whats{
+    padding: 15px;
+    position: fixed;
+    bottom: 0;
+    right: 0;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.h1-home {
+    margin-bottom: 40px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.contato-list {
+    margin-bottom: 20px;
+    margin-top: 10px;
+    width: 80%;
+    display: flex;
+    padding: 5px;
+    font-size: 17px;
+    font-family: 'Righteous', cursive;
 }
 
-.App-link {
-  color: #61dafb;
+.whatsapp:hover {
+    padding: 10px;
+    background-color: rgb(6, 179, 6);
+    border-radius: 30px;
+    color: white;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.tel:hover {
+    padding: 10px;
+    background-color: black;
+    color: white;
+    border-radius: 30px;
+}
+
+.insta:hover {
+    padding: 10px;
+    background-color: palevioletred;
+    color: white;
+    border-radius: 30px;
+}
+
+.face:hover {
+    padding: 10px;
+    background-color: royalblue;
+    color: white;
+    border-radius: 30px;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+    transition: 0.3s;
+}
+
+a:hover {
+    opacity: 0.7;
+}
+
+.fone {
+    font-size: 20px;
+    padding: 12px;
+    color: white;
+    background-color: black;
+    border-radius: 20px;
+}
+
+.container-localizao {
+    margin-top: 10px;
+    text-align: center;
+    width: 100%;
+}
+
+.depositoImg {
+    margin: auto;
+    border: 3px solid gray;
+    margin-top: 30px;
+    width: 100%;
+    height: 300px;
+}
+.h1-top-foto {
+    font-family: 'Righteous', cursive;
+    color: #d33100;
+    box-shadow: rgb(0, 0, 0, 10);
+}
+
+.paragrafo1 {
+    font-size: large;
+    width: 80%;
+    margin: auto;
+    text-align: left;
+}
+
+.container-segurança {
+    width: 100%;
+    background-color: #d33100;
+    margin-top: 30px;
+    color: white;
+}
+
+.seguranca-text {
+    font-size: 20px;
+    text-align: center;
+}
+.map{
+    display: flex;
+    justify-content: center;
+}
+
+h2 {
+    margin: 20px;
+}
+
+.confira-seg {
+    margin: 20px;
+    padding: 15px;
+    background-color: black;
+    color: white;
+    font-size: 20px;
+    font-family: 'Righteous', cursive;
+    border-radius: 20px;
+    border: solid 5px black;
+    cursor: pointer;
+}
+
+.produtos-container {
+    margin-top: 30px;
+    width: 100%;
+    text-align: center;
+}
+
+.produtos-item-descriçao {
+    background-color: #d33100;
+    padding: 10px;
+    border-radius: 10px;
+    color: white;
+    border: 2px solid gray;
+}
+
+.home-h3 {
+    text-align: center;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    padding: 10px;
+    font-family: 'Righteous', cursive;
+    font-size: 30px;
+    background-color: #d33100;
+    border-top: 3px solid gray;
+    border-bottom: 3px solid gray;
+    color: white;
+}
+
+.footer-foto-logo {
+    height: 400px;
+    width: 100%;
+    
+}
+
+.footer-container {
+    text-align: center;
+    margin-top: 20px;
+    background-color: #d33100;
+}
+
+.h3-footer {
+    font-size: 40px;
+    text-align: left;
+    color: goldenrod;
+}
+
+.footer-text {
+    margin: auto;
+    width: 80%;
+}
+
+.footer-p {
+    text-align: left;
+    display: block;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    color: white;
+}
+
+.mail {
+    font-family: 'Righteous', cursive;
+    color: goldenrod;
+    font-size: larger;
+    
+}
+
+.footer-list-horario {
+    text-align: end;
+    padding: 25px;
+    color: white;
+    border-bottom: 2px solid gray;
+    
+}
+.h3-horario{
+    color: goldenrod;
+}
+.bottom{
+    color: goldenrod;
+    padding: 30px;
+    font-family: 'Righteous', cursive;
+}
+@media (min-width: 750px) {
+
+    .footer-p{
+        width: 80%;
+    }
+    .depositoImg {
+        width: 60%;
+    }
+
+    .contato-list {
+        width: 80%;
+        font-size: 25px;
+        display: block;
+    }
+
+}
+@media (min-width: 1050px) {
+    .footer-p{
+        width: 60%;
+    }
+    .footer-container{
+        margin-top: 50px;
+    }
+    .footer-foto-logo{
+        display: none;
+    }
+
+    .contato-list {
+        display: block;
+    }
+
+    .container-localizao {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .depositoImg {
+        margin: 30px;
+        width: 600px;
+        height: 500px;
+    }
 }

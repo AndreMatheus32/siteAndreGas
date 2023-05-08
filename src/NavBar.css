@@ -1,0 +1,82 @@
+*::before {
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-size: 62.5%;
+}
+
+body {
+    font-size: 1.6rem;
+}
+
+.nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    height: 15vh;
+    background-color: #d33100;
+}
+
+.logo {
+    text-transform: uppercase;
+    font-size: 30px;
+    font-weight: bold;
+    color: white;
+}
+
+.nav_menu {
+    font-size: larger;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    gap: 3rem;
+}
+
+.nav_toggler div {
+    width: 32px;
+    height: 3px;
+    margin: 8px;
+    background-color: whitesmoke;
+}
+
+.nav_toggler {
+    cursor: pointer;
+    display: none;
+}
+
+@media (max-width : 768px) {
+
+    .nav_toggler {
+        display: block;
+
+    }
+    .nav_menu {
+        position: absolute;
+        top: 20vh;
+        right: 0;
+        width: 50vh;
+        height: 83vh;
+        background-color: #d33100;
+        flex-direction: column;
+        transform: translateX(100%);
+        transition: 0.3s ease-in;
+    }
+}
+
+.nav_active {
+    transform: translateX(0);
+}
+
+.toggle .line1 {
+    transform: rotate(-45deg) translate(-10px , 5px);
+}
+
+.toggle .line2 {
+    opacity: 0;
+}
+
+.toggle .line3 {
+    transform: rotate(45deg) translate(-10px , -5px);
+}
