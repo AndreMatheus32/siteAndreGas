@@ -9,7 +9,7 @@ export const negocio = {
   cidade: 'Apucarana',
   uf: 'PR',
   endereco: {
-    rua: 'Rua Rio Tibagi, 269',
+    rua: 'Rua Rio Pirapó, 269',
     bairro: 'Núcleo Habitacional Papa João Paulo',
     cep: '86801-080',
   },
@@ -30,6 +30,8 @@ export const horarios = [
   { dia: 'Sexta-feira', curto: 'Sex', abre: 8 * 60, fecha: 21 * 60 },
   { dia: 'Sábado', curto: 'Sáb', abre: 8 * 60, fecha: 20 * 60 },
 ];
+
+export const feriados = { abre: 8 * 60, fecha: 13 * 60 };
 
 export const hora = (min: number) => {
   const h = Math.floor(min / 60);

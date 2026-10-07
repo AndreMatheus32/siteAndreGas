@@ -1,0 +1,51 @@
+---
+// Mascote em 3D cartoon. Cada pose é um PNG transparente em src/fotos/mascote/pose-N.png.
+// Enquanto a pose não existir, mostra a foto original recortada em círculo.
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import foto from '../fotos/mascote-foto.jpg';
+
+export const poses = {
+  1: 'acenando ao lado do botijão',
+  2: 'correndo com o botijão no ombro',
+  3: 'segurando o celular',
+  4: 'abraçando o galão de água',
+  5: 'de capacete, fazendo joinha',
+  6: 'sentado, apontando para o lado',
+} as const;
+
+interface Props {
+  pose: keyof typeof poses;
+  class?: string;
+  width: number;
+  sizes?: string;
+  eager?: boolean;
+}
+const { pose, class: cls = '', width, sizes, eager = false } = Astro.props;
+
+const arquivos = import.meta.glob<{ default: ImageMetadata }>('../fotos/mascote/pose-*.png', { eager: true });
+const img = arquivos[`../fotos/mascote/pose-${pose}.png`]?.default;
+const alt = `Mascote da André Gás ${poses[pose]}`;
+---
+{img ? (
+  <Image
+    src={img}
+    alt={alt}
+    class={`mascote ${cls}`}
+    widths={[Math.round(width / 2), width, width * 2].filter((w) => w <= img.width)}
+    sizes={sizes ?? `${width}px`}
+    loading={eager ? 'eager' : 'lazy'}
+    fetchpriority={eager ? 'high' : 'auto'}
+  />
+) : (
+  <Image
+    src={foto}
+    alt={alt}
+    class={`mascote mascote--foto ${cls}`}
+    width={width}
+    height={width}
+    fit="cover"
+    position="top"
+    loading={eager ? 'eager' : 'lazy'}
+  />
+)}

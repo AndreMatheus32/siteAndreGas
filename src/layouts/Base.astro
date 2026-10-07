@@ -1,11 +1,11 @@
 ---
-import '@fontsource/barlow-condensed/800.css';
-import '@fontsource/barlow/500.css';
-import '@fontsource/barlow/600.css';
-import fonteTitulo from '@fontsource/barlow-condensed/files/barlow-condensed-latin-800-normal.woff2?url';
-import fonteTexto from '@fontsource/barlow/files/barlow-latin-500-normal.woff2?url';
+import '@fontsource/poppins/400.css';
+import '@fontsource/poppins/600.css';
+import '@fontsource/poppins/800.css';
+import fonteTitulo from '@fontsource/poppins/files/poppins-latin-800-normal.woff2?url';
+import fonteTexto from '@fontsource/poppins/files/poppins-latin-400-normal.woff2?url';
 import '../styles/global.css';
-import { negocio, horarios } from '../data/negocio';
+import { negocio, horarios, feriados } from '../data/negocio';
 
 interface Props {
   title: string;
@@ -41,12 +41,20 @@ const schema = {
   },
   geo: { '@type': 'GeoCoordinates', latitude: negocio.geo.lat, longitude: negocio.geo.lng },
   areaServed: { '@type': 'City', name: 'Apucarana, PR' },
-  openingHoursSpecification: horarios.map((h, i) => ({
-    '@type': 'OpeningHoursSpecification',
-    dayOfWeek: `https://schema.org/${dias[i]}`,
-    opens: hhmm(h.abre),
-    closes: hhmm(h.fecha),
-  })),
+  openingHoursSpecification: [
+    ...horarios.map((h, i) => ({
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: `https://schema.org/${dias[i]}`,
+      opens: hhmm(h.abre),
+      closes: hhmm(h.fecha),
+    })),
+    {
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: 'https://schema.org/PublicHolidays',
+      opens: hhmm(feriados.abre),
+      closes: hhmm(feriados.fecha),
+    },
+  ],
   contactPoint: [
     { '@type': 'ContactPoint', telephone: negocio.telefone.e164, contactType: 'sales', areaServed: 'BR', availableLanguage: 'Portuguese' },
     { '@type': 'ContactPoint', telephone: `+${negocio.whatsapp.numero}`, contactType: 'sales', areaServed: 'BR', availableLanguage: 'Portuguese' },
@@ -72,7 +80,7 @@ const schema = {
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
-    <meta name="theme-color" content="#27187E" />
+    <meta name="theme-color" content="#FF7D00" />
     <meta name="format-detection" content="telephone=no" />
 
     <link rel="preload" href={fonteTitulo} as="font" type="font/woff2" crossorigin />
