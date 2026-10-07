@@ -11,7 +11,6 @@ import acessorio from '../fotos/acessorio.png';
 import agua from '../fotos/agua.png';
 import deposito from '../fotos/deposito.jpg';
 import caminhonete from '../fotos/caminhonete.png';
-import logoClaro from '../fotos/logo-andregas-claro.png';
 import supergasbras from '../fotos/supergaslogo.jpg';
 
 const pedido = (item: string) => `Olá, André Gás! Quero ${item}. Meu endereço é: `;
@@ -55,7 +54,7 @@ const ano = new Date().getFullYear();
   <header class="topo">
     <div class="in topo__in">
       <a class="marca" href="/" aria-label="André Gás, início">
-        <Image src={logoClaro} alt="André Gás" height={52} densities={[1, 2]} loading="eager" />
+        <span class="marca__andre">André</span><span class="marca__gas">Gás</span>
       </a>
       <nav class="nav" id="menu" popover aria-label="Menu principal">
         <a href="#produtos">Produtos</a>
@@ -85,33 +84,19 @@ const ano = new Date().getFullYear();
           <h1 id="hero-titulo" class="hero__titulo">
             Gás de cozinha <span class="destaque">na sua porta</span> em ~{negocio.prazoMin} minutos
           </h1>
-          <p class="hero__sub">Entrega e instalação em toda Apucarana há mais de {negocio.anos} anos. Escolha o produto e o pedido já chega pronto no nosso WhatsApp.</p>
 
-          <p class="rotulo">Peça com um toque:</p>
-          <ul class="chips" role="list">
-            {produtos.map((p, i) => (
-              <li style={`--i:${i}`}>
-                <a class="chip" href={wa(p.msg)} target="_blank" rel="noopener">
-                  <Image src={p.img} alt="" height={40} densities={[1, 2]} loading="eager" />
-                  <span>{p.curto}</span>
-                </a>
-              </li>
-            ))}
-          </ul>
-
-          <div class="acoes">
-            <a class="btn btn--wa" href={wa(mensagemPadrao)} target="_blank" rel="noopener">
-              <Icon name="whatsapp" size={22} /> Pedir no WhatsApp
+          <div class="hero__acoes">
+            <a class="cta-grande cta-grande--wa" href={wa(mensagemPadrao)} target="_blank" rel="noopener">
+              <span class="cta-grande__ic"><Icon name="whatsapp" size={28} /></span>
+              <span class="cta-grande__txt"><b>Pedir no WhatsApp</b><small>Resposta rápida</small></span>
+              <Icon name="ArrowRight" size={22} class="cta-grande__seta" />
             </a>
-            <a class="btn btn--azul" href={negocio.telefone.link}>
-              <Icon name="Phone" size={20} /> Ligar {negocio.telefone.exibir}
+            <a class="cta-grande cta-grande--fone" href={negocio.telefone.link}>
+              <span class="cta-grande__ic"><Icon name="Phone" size={26} /></span>
+              <span class="cta-grande__txt"><b>Ligar agora</b><small>{negocio.telefone.exibir}</small></span>
+              <Icon name="ArrowRight" size={22} class="cta-grande__seta" />
             </a>
           </div>
-
-          <ul class="info" role="list">
-            <li><span class="info__ic"><Icon name="Clock" size={18} /></span><span>Seg a Sex 8h às 21h · Sáb 8h às 20h<br />Dom e feriados 8h às 13h</span></li>
-            <li><span class="info__ic"><Icon name="MapPin" size={18} /></span><span>Entregamos em <b>toda Apucarana</b></span></li>
-          </ul>
         </div>
 
         <div class="hero__arte" data-tilt>
@@ -119,13 +104,9 @@ const ano = new Date().getFullYear();
           <div class="hero__mascote">
             <Mascote pose={1} width={520} sizes="(min-width: 960px) 520px, 80vw" eager class="flutua" />
           </div>
-          <p class="balao" aria-hidden="true">Au au! Bora pedir?</p>
-          <div class="cartao cartao--a" aria-hidden="true"><Icon name="Timer" size={22} /><span><b>~{negocio.prazoMin} min</b>entrega</span></div>
-          <div class="cartao cartao--b" aria-hidden="true"><Icon name="Award" size={22} /><span><b>+{negocio.anos} anos</b>em Apucarana</span></div>
         </div>
       </div>
 
-      <a class="explorar in" href="#produtos"><span class="explorar__ic"><Icon name="ChevronDown" size={18} /></span> Ver produtos</a>
       <svg class="onda-baixo" viewBox="0 0 1440 60" preserveAspectRatio="none" aria-hidden="true"><path d="M0 60V30C240 0 480 0 720 22s480 38 720 8v30z" /></svg>
     </section>
 
@@ -340,7 +321,7 @@ const ano = new Date().getFullYear();
   <footer class="rodape">
     <div class="in rodape__in">
       <div class="rodape__empresa">
-        <Image src={logoClaro} alt="André Gás" height={70} densities={[1, 2]} />
+        <p class="marca marca--rodape"><span class="marca__andre">André</span><span class="marca__gas">Gás</span></p>
         <p>A André Gás está sempre buscando o melhor atendimento para seus clientes. Mande dicas, reclamações e outras mensagens para o nosso e-mail.</p>
         <a class="rodape__mail" href={`mailto:${negocio.email}`}><Icon name="Mail" size={18} /> {negocio.email}</a>
         <div class="redes">
