@@ -1,0 +1,108 @@
+---
+import '@fontsource/barlow-condensed/800.css';
+import '@fontsource/barlow/500.css';
+import '@fontsource/barlow/600.css';
+import fonteTitulo from '@fontsource/barlow-condensed/files/barlow-condensed-latin-800-normal.woff2?url';
+import fonteTexto from '@fontsource/barlow/files/barlow-latin-500-normal.woff2?url';
+import '../styles/global.css';
+import { negocio, horarios } from '../data/negocio';
+
+interface Props {
+  title: string;
+  description: string;
+}
+const { title, description } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const og = new URL('/og.jpg', Astro.site).href;
+
+const dias = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+const hhmm = (m: number) => `${String(Math.floor(m / 60)).padStart(2, '0')}:${String(m % 60).padStart(2, '0')}`;
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'LocalBusiness',
+  '@id': `${negocio.site}/#negocio`,
+  name: negocio.nome,
+  description,
+  url: negocio.site,
+  image: [og, new URL('/logo.jpg', Astro.site).href],
+  logo: new URL('/logo.jpg', Astro.site).href,
+  telephone: negocio.telefone.e164,
+  email: negocio.email,
+  priceRange: '$',
+  currenciesAccepted: 'BRL',
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: negocio.endereco.rua,
+    addressLocality: negocio.cidade,
+    addressRegion: negocio.uf,
+    postalCode: negocio.endereco.cep,
+    addressCountry: 'BR',
+  },
+  geo: { '@type': 'GeoCoordinates', latitude: negocio.geo.lat, longitude: negocio.geo.lng },
+  areaServed: { '@type': 'City', name: 'Apucarana, PR' },
+  openingHoursSpecification: horarios.map((h, i) => ({
+    '@type': 'OpeningHoursSpecification',
+    dayOfWeek: `https://schema.org/${dias[i]}`,
+    opens: hhmm(h.abre),
+    closes: hhmm(h.fecha),
+  })),
+  contactPoint: [
+    { '@type': 'ContactPoint', telephone: negocio.telefone.e164, contactType: 'sales', areaServed: 'BR', availableLanguage: 'Portuguese' },
+    { '@type': 'ContactPoint', telephone: `+${negocio.whatsapp.numero}`, contactType: 'sales', areaServed: 'BR', availableLanguage: 'Portuguese' },
+  ],
+  sameAs: [negocio.instagram.url, negocio.facebook],
+  hasOfferCatalog: {
+    '@type': 'OfferCatalog',
+    name: 'Produtos',
+    itemListElement: [
+      'Botijão de gás residencial P13',
+      'Botijões industriais P20 e P45',
+      'Acessórios para gás',
+      'Galão de água de 20 litros',
+    ].map((name) => ({ '@type': 'Offer', itemOffered: { '@type': 'Product', name } })),
+  },
+};
+---
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta name="theme-color" content="#27187E" />
+    <meta name="format-detection" content="telephone=no" />
+
+    <link rel="preload" href={fonteTitulo} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={fonteTexto} as="font" type="font/woff2" crossorigin />
+
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:site_name" content={negocio.nome} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={og} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="André Gás: gás de cozinha e água em Apucarana, entrega em cerca de 20 minutos" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <meta name="geo.region" content="BR-PR" />
+    <meta name="geo.placename" content="Apucarana" />
+    <meta name="geo.position" content={`${negocio.geo.lat};${negocio.geo.lng}`} />
+
+    <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

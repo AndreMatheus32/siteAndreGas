@@ -1,0 +1,32 @@
+---
+// Ícones resolvidos em build: zero JS e zero requisição no cliente.
+import * as lucide from 'lucide-static';
+import { siWhatsapp, siInstagram, siFacebook } from 'simple-icons';
+
+interface Props {
+  name: string;
+  size?: number;
+  class?: string;
+}
+const { name, size = 24, class: cls = '' } = Astro.props;
+
+const marcas: Record<string, string> = {
+  whatsapp: siWhatsapp.path,
+  instagram: siInstagram.path,
+  facebook: siFacebook.path,
+};
+
+let svg: string;
+if (marcas[name]) {
+  svg = `<svg viewBox="0 0 24 24" width="${size}" height="${size}" fill="currentColor" aria-hidden="true" class="icon ${cls}"><path d="${marcas[name]}"/></svg>`;
+} else {
+  const raw = (lucide as Record<string, string>)[name];
+  if (!raw) throw new Error(`Ícone não encontrado: ${name}`);
+  svg = raw
+    .replace(/class="[^"]*"/, `class="icon ${cls}" aria-hidden="true"`)
+    .replace(/width="24"/, `width="${size}"`)
+    .replace(/height="24"/, `height="${size}"`)
+    .replace(/\s*\n\s*/g, ' ');
+}
+---
+<Fragment set:html={svg} />

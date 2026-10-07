@@ -1,0 +1,13 @@
+{
+  "name": "André Gás",
+  "short_name": "André Gás",
+  "lang": "pt-BR",
+  "start_url": "/",
+  "display": "browser",
+  "background_color": "#FFF7EE",
+  "theme_color": "#27187E",
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}
