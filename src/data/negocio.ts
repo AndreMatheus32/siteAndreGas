@@ -14,7 +14,7 @@ export const negocio = {
     cep: '86801-080',
   },
   geo: { lat: -23.557900371161804, lng: -51.49107361775747 },
-  telefone: { exibir: '(43) 3426-2369', link: 'tel:+554334262369', e164: '+554334262369' },
+  telefone: { exibir: '(43) 99978-9468', link: 'tel:+5543999789468', e164: '+5543999789468' },
   whatsapp: { exibir: '(43) 99978-9468', numero: '5543999789468' },
   instagram: { usuario: 'andregasapucarana', url: 'https://www.instagram.com/andregasapucarana/' },
   facebook: 'https://www.facebook.com/profile.php?id=100010926222693',

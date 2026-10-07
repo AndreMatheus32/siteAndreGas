@@ -8,7 +8,7 @@ import { negocio, horarios, feriados, hora, wa, mensagemPadrao, mapsUrl, rotaUrl
 import botijao from '../fotos/botijao.png';
 import industrial from '../fotos/industrial.png';
 import acessorio from '../fotos/acessorio.png';
-import agua from '../fotos/agua.webp';
+import agua from '../fotos/agua.png';
 import deposito from '../fotos/deposito.jpg';
 import caminhonete from '../fotos/caminhonete.png';
 import logoClaro from '../fotos/logo-andregas-claro.png';
@@ -35,6 +35,13 @@ const passos = [
   { titulo: 'Diga o endereço', texto: 'Rua, número e bairro. Só isso.' },
   { titulo: `Receba em ~${negocio.prazoMin} minutos`, texto: 'Entregamos em toda Apucarana.' },
   { titulo: 'A gente instala', texto: 'Entregadores treinados trocam e testam o botijão pra você.' },
+];
+
+const vantagens = [
+  { icone: 'Timer', titulo: `Entrega em ~${negocio.prazoMin} min`, texto: 'Saímos assim que o pedido chega, para toda Apucarana.' },
+  { icone: 'Wrench', titulo: 'Instalação inclusa', texto: 'Entregadores treinados instalam e testam o botijão.' },
+  { icone: 'ShieldCheck', titulo: 'Botijão dourado', texto: 'Revenda autorizada Supergasbras, com segurança.' },
+  { icone: 'CalendarCheck', titulo: 'Aberto 7 dias', texto: 'De segunda a domingo, inclusive feriados.' },
 ];
 
 const ano = new Date().getFullYear();
@@ -96,8 +103,8 @@ const ano = new Date().getFullYear();
             <a class="btn btn--wa" href={wa(mensagemPadrao)} target="_blank" rel="noopener">
               <Icon name="whatsapp" size={22} /> Pedir no WhatsApp
             </a>
-            <a class="btn btn--linha" href={negocio.telefone.link}>
-              <Icon name="Phone" size={20} /> {negocio.telefone.exibir}
+            <a class="btn btn--azul" href={negocio.telefone.link}>
+              <Icon name="Phone" size={20} /> Ligar {negocio.telefone.exibir}
             </a>
           </div>
 
@@ -119,6 +126,7 @@ const ano = new Date().getFullYear();
       </div>
 
       <a class="explorar in" href="#produtos"><span class="explorar__ic"><Icon name="ChevronDown" size={18} /></span> Ver produtos</a>
+      <svg class="onda-baixo" viewBox="0 0 1440 60" preserveAspectRatio="none" aria-hidden="true"><path d="M0 60V30C240 0 480 0 720 22s480 38 720 8v30z" /></svg>
     </section>
 
     <!-- PRODUTOS -->
@@ -144,7 +152,8 @@ const ano = new Date().getFullYear();
     </section>
 
     <!-- PÚBLICOS -->
-    <section class="secao secao--curta" aria-labelledby="publicos-titulo">
+    <section class="secao laranja" aria-labelledby="publicos-titulo">
+      <svg class="onda-cima" viewBox="0 0 1440 60" preserveAspectRatio="none" aria-hidden="true"><path d="M0 0v30c240 30 480 30 720 8S1200 0 1440 30V0z" /></svg>
       <div class="in">
         <div class="cabeca cabeca--centro">
           <h2 id="publicos-titulo" class="titulo">Gás para <span class="destaque">todo tipo</span> de cliente</h2>
@@ -191,7 +200,9 @@ const ano = new Date().getFullYear();
     </section>
 
     <!-- CALCULADORA -->
-    <section class="secao" id="quanto-dura" aria-labelledby="calc-titulo">
+    <section class="secao laranja" id="quanto-dura" aria-labelledby="calc-titulo">
+      <span class="bolha b1" aria-hidden="true"></span>
+      <span class="bolha b4" aria-hidden="true"></span>
       <div class="in calc">
         <div class="calc__texto">
           <h2 id="calc-titulo" class="titulo">Quanto dura seu <span class="destaque">botijão P13?</span></h2>
@@ -237,6 +248,29 @@ const ano = new Date().getFullYear();
           <span class="arte__disco" aria-hidden="true"></span>
           <Image class="sobre__foto" src={deposito} alt="Fachada do depósito André Gás em Apucarana" widths={[420, 640, 840]} sizes="(min-width: 960px) 460px, 86vw" />
           <Image class="sobre__carro" src={caminhonete} alt="Caminhonete de entrega de gás" widths={[260, 520]} sizes="260px" />
+        </div>
+      </div>
+    </section>
+
+    <!-- POR QUE -->
+    <section class="secao laranja porque" aria-labelledby="porque-titulo">
+      <svg class="onda-cima" viewBox="0 0 1440 60" preserveAspectRatio="none" aria-hidden="true"><path d="M0 0v30c240 30 480 30 720 8S1200 0 1440 30V0z" /></svg>
+      <div class="in duas">
+        <div>
+          <h2 id="porque-titulo" class="titulo">Por que comprar com a <span class="destaque">André Gás?</span></h2>
+          <p class="texto-sub">A André Gás prioriza a satisfação total do cliente, com atendimento de qualidade e produto que se adequa às necessidades de cada casa e empresa.</p>
+          <ul class="vantagens" role="list">
+            {vantagens.map((v, i) => (
+              <li class="vantagem reveal" style={`--i:${i}`}>
+                <span class="vantagem__ic"><Icon name={v.icone} size={22} /></span>
+                <div><h3>{v.titulo}</h3><p>{v.texto}</p></div>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div class="porque__arte">
+          <span class="porque__disco" aria-hidden="true"></span>
+          <Mascote pose={2} width={420} sizes="(min-width: 960px) 420px, 70vw" class="corrida" />
         </div>
       </div>
     </section>
@@ -331,8 +365,8 @@ const ano = new Date().getFullYear();
       <div>
         <h2>Contato</h2>
         <ul class="contatos" role="list">
-          <li><a href={wa(mensagemPadrao)} target="_blank" rel="noopener"><Icon name="whatsapp" size={18} /> {negocio.whatsapp.exibir}</a></li>
-          <li><a href={negocio.telefone.link}><Icon name="Phone" size={18} /> {negocio.telefone.exibir}</a></li>
+          <li><a href={wa(mensagemPadrao)} target="_blank" rel="noopener"><Icon name="whatsapp" size={18} /> WhatsApp {negocio.whatsapp.exibir}</a></li>
+          <li><a href={negocio.telefone.link}><Icon name="Phone" size={18} /> Ligar {negocio.telefone.exibir}</a></li>
           <li><a href={negocio.instagram.url} target="_blank" rel="noopener"><Icon name="instagram" size={18} /> @{negocio.instagram.usuario}</a></li>
           <li><a href={mapsUrl} target="_blank" rel="noopener"><Icon name="MapPin" size={18} /> {negocio.endereco.rua}, {negocio.cidade} - {negocio.uf}</a></li>
         </ul>

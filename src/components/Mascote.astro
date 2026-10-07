@@ -1,17 +1,20 @@
 ---
-// Mascote em 3D cartoon. Cada pose é um PNG transparente em src/fotos/mascote/pose-N.png.
-// Enquanto a pose não existir, mostra a foto original recortada em círculo.
+// Mascote 3D cartoon da André Gás. Cada pose é um PNG transparente em src/fotos/mascote.
 import { Image } from 'astro:assets';
-import type { ImageMetadata } from 'astro';
-import foto from '../fotos/mascote-foto.jpg';
+import p1 from '../fotos/mascote/pose-1.png';
+import p2 from '../fotos/mascote/pose-2.png';
+import p3 from '../fotos/mascote/pose-3.png';
+import p4 from '../fotos/mascote/pose-4.png';
+import p5 from '../fotos/mascote/pose-5.png';
+import p6 from '../fotos/mascote/pose-6.png';
 
-export const poses = {
-  1: 'acenando ao lado do botijão',
-  2: 'correndo com o botijão no ombro',
-  3: 'segurando o celular',
-  4: 'abraçando o galão de água',
-  5: 'de capacete, fazendo joinha',
-  6: 'sentado, apontando para o lado',
+const poses = {
+  1: { img: p1, alt: 'acenando ao lado do botijão' },
+  2: { img: p2, alt: 'correndo com o botijão no ombro' },
+  3: { img: p3, alt: 'segurando o celular' },
+  4: { img: p4, alt: 'abraçando o galão de água' },
+  5: { img: p5, alt: 'de capacete, fazendo joinha' },
+  6: { img: p6, alt: 'sentado, apontando' },
 } as const;
 
 interface Props {
@@ -22,30 +25,14 @@ interface Props {
   eager?: boolean;
 }
 const { pose, class: cls = '', width, sizes, eager = false } = Astro.props;
-
-const arquivos = import.meta.glob<{ default: ImageMetadata }>('../fotos/mascote/pose-*.png', { eager: true });
-const img = arquivos[`../fotos/mascote/pose-${pose}.png`]?.default;
-const alt = `Mascote da André Gás ${poses[pose]}`;
+const { img, alt } = poses[pose];
 ---
-{img ? (
-  <Image
-    src={img}
-    alt={alt}
-    class={`mascote ${cls}`}
-    widths={[Math.round(width / 2), width, width * 2].filter((w) => w <= img.width)}
-    sizes={sizes ?? `${width}px`}
-    loading={eager ? 'eager' : 'lazy'}
-    fetchpriority={eager ? 'high' : 'auto'}
-  />
-) : (
-  <Image
-    src={foto}
-    alt={alt}
-    class={`mascote mascote--foto ${cls}`}
-    width={width}
-    height={width}
-    fit="cover"
-    position="top"
-    loading={eager ? 'eager' : 'lazy'}
-  />
-)}
+<Image
+  src={img}
+  alt={`Mascote da André Gás ${alt}`}
+  class={`mascote ${cls}`}
+  widths={[...new Set([Math.round(width / 2), width, width * 2].map((w) => Math.min(w, img.width)))]}
+  sizes={sizes ?? `${width}px`}
+  loading={eager ? 'eager' : 'lazy'}
+  fetchpriority={eager ? 'high' : 'auto'}
+/>

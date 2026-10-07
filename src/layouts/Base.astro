@@ -57,7 +57,6 @@ const schema = {
   ],
   contactPoint: [
     { '@type': 'ContactPoint', telephone: negocio.telefone.e164, contactType: 'sales', areaServed: 'BR', availableLanguage: 'Portuguese' },
-    { '@type': 'ContactPoint', telephone: `+${negocio.whatsapp.numero}`, contactType: 'sales', areaServed: 'BR', availableLanguage: 'Portuguese' },
   ],
   sameAs: [negocio.instagram.url, negocio.facebook],
   hasOfferCatalog: {
@@ -86,7 +85,6 @@ const schema = {
     <link rel="preload" href={fonteTitulo} as="font" type="font/woff2" crossorigin />
     <link rel="preload" href={fonteTexto} as="font" type="font/woff2" crossorigin />
 
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
