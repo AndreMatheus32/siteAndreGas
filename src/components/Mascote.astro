@@ -1,0 +1,38 @@
+---
+// Mascote 3D cartoon da André Gás. Cada pose é um PNG transparente em src/fotos/mascote.
+import { Image } from 'astro:assets';
+import p1 from '../fotos/mascote/pose-1.png';
+import p2 from '../fotos/mascote/pose-2.png';
+import p3 from '../fotos/mascote/pose-3.png';
+import p4 from '../fotos/mascote/pose-4.png';
+import p5 from '../fotos/mascote/pose-5.png';
+import p6 from '../fotos/mascote/pose-6.png';
+
+const poses = {
+  1: { img: p1, alt: 'acenando ao lado do botijão' },
+  2: { img: p2, alt: 'correndo com o botijão no ombro' },
+  3: { img: p3, alt: 'segurando o celular' },
+  4: { img: p4, alt: 'abraçando o galão de água' },
+  5: { img: p5, alt: 'de capacete, fazendo joinha' },
+  6: { img: p6, alt: 'sentado, apontando' },
+} as const;
+
+interface Props {
+  pose: keyof typeof poses;
+  class?: string;
+  width: number;
+  sizes?: string;
+  eager?: boolean;
+}
+const { pose, class: cls = '', width, sizes, eager = false } = Astro.props;
+const { img, alt } = poses[pose];
+---
+<Image
+  src={img}
+  alt={`Mascote da André Gás ${alt}`}
+  class={`mascote ${cls}`}
+  widths={[...new Set([Math.round(width / 2), width, width * 2].map((w) => Math.min(w, img.width)))]}
+  sizes={sizes ?? `${width}px`}
+  loading={eager ? 'eager' : 'lazy'}
+  fetchpriority={eager ? 'high' : 'auto'}
+/>

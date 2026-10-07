@@ -1,0 +1,462 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import Mascote from '../components/Mascote.astro';
+import { negocio, horarios, feriados, hora, wa, mensagemPadrao, mapsUrl, rotaUrl } from '../data/negocio';
+
+import botijao from '../fotos/botijao.png';
+import industrial from '../fotos/industrial.png';
+import acessorio from '../fotos/acessorio.png';
+import agua from '../fotos/agua.png';
+import deposito from '../fotos/deposito.jpg';
+import caminhonete from '../fotos/caminhonete.png';
+import supergasbras from '../fotos/supergaslogo.jpg';
+
+const pedido = (item: string) => `Olá, André Gás! Quero ${item}. Meu endereço é: `;
+
+const produtos = [
+  { id: 'p13', nome: 'Botijão residencial P13', curto: 'Gás P13', img: botijao, msg: pedido('1 botijão P13') },
+  { id: 'industrial', nome: 'Botijões industriais P20 e P45', curto: 'P20 / P45', img: industrial, msg: pedido('botijão industrial (P20 ou P45)') },
+  { id: 'agua', nome: 'Galão de água de 20 litros', curto: 'Água 20 L', img: agua, msg: pedido('1 galão de água de 20 litros') },
+  { id: 'acessorios', nome: 'Todo tipo de acessórios', curto: 'Acessórios', img: acessorio, msg: 'Olá, André Gás! Preciso de um acessório para gás: ' },
+];
+
+const publicos = [
+  { icone: 'House', cor: 'laranja', titulo: 'Residências', texto: 'O gás do dia a dia entregue e instalado na sua cozinha.' },
+  { icone: 'Building2', cor: 'azul', titulo: 'Condomínios', texto: 'Atendimento rápido para moradores e síndicos.' },
+  { icone: 'Briefcase', cor: 'verde', titulo: 'Empresas', texto: 'P20 e P45 para refeitórios, indústrias e cozinhas.' },
+  { icone: 'Store', cor: 'amarelo', titulo: 'Comércios', texto: 'Restaurantes, lanchonetes e padarias sem parar.' },
+];
+
+const passos = [
+  { titulo: 'Chame no WhatsApp ou ligue', texto: 'Toque no produto e a mensagem já vai escrita.' },
+  { titulo: 'Diga o endereço', texto: 'Rua, número e bairro. Só isso.' },
+  { titulo: `Receba em ~${negocio.prazoMin} minutos`, texto: 'Entregamos em toda Apucarana.' },
+  { titulo: 'A gente instala', texto: 'Entregadores treinados trocam e testam o botijão pra você.' },
+];
+
+const vantagens = [
+  { icone: 'Timer', titulo: `Entrega em ~${negocio.prazoMin} min`, texto: 'Saímos assim que o pedido chega, para toda Apucarana.' },
+  { icone: 'Wrench', titulo: 'Instalação inclusa', texto: 'Entregadores treinados instalam e testam o botijão.' },
+  { icone: 'ShieldCheck', titulo: 'Botijão dourado', texto: 'Revenda autorizada Supergasbras, com segurança.' },
+  { icone: 'CalendarCheck', titulo: 'Aberto 7 dias', texto: 'De segunda a domingo, inclusive feriados.' },
+];
+
+const ano = new Date().getFullYear();
+---
+<Base
+  title="André Gás | Gás de cozinha e água em Apucarana, entrega em ~20 min"
+  description={`Gás de cozinha P13, P20, P45, água 20 L e acessórios com entrega e instalação em cerca de ${negocio.prazoMin} minutos em toda Apucarana-PR. Há mais de ${negocio.anos} anos. WhatsApp ${negocio.whatsapp.exibir}, telefone ${negocio.telefone.exibir}.`}
+>
+  <a class="pular" href="#contato">Ir para o pedido</a>
+
+  <header class="topo">
+    <div class="in topo__in">
+      <a class="marca" href="/" aria-label="André Gás, início">
+        <span class="marca__andre">André</span><span class="marca__gas">Gás</span>
+      </a>
+      <nav class="nav" id="menu" popover aria-label="Menu principal">
+        <a href="#produtos">Produtos</a>
+        <a href="#quem-somos">Sobre</a>
+        <a href="#localizaçao">Localização</a>
+        <a href="#segurança">Segurança</a>
+        <a class="nav__fone" href={negocio.telefone.link}><Icon name="Phone" size={18} /> {negocio.telefone.exibir}</a>
+      </nav>
+      <a class="btn btn--laranja btn--p topo__cta" href={wa(mensagemPadrao)} target="_blank" rel="noopener">Pedir gás</a>
+      <a class="topo__fone" href={negocio.telefone.link} aria-label={`Ligar ${negocio.telefone.exibir}`}><Icon name="Phone" size={20} /></a>
+      <button class="topo__menu" popovertarget="menu" aria-label="Abrir menu"><Icon name="Menu" size={24} /></button>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero" id="contato" aria-labelledby="hero-titulo">
+      <span class="bolha b1" aria-hidden="true"></span>
+      <span class="bolha b2" aria-hidden="true"></span>
+      <span class="bolha b3" aria-hidden="true"></span>
+      <span class="bolha b4" aria-hidden="true"></span>
+
+      <div class="in hero__in">
+        <div class="hero__texto">
+          <h1 id="hero-titulo" class="hero__titulo">
+            Gás de cozinha <span class="destaque">na sua porta</span> em ~{negocio.prazoMin} minutos
+          </h1>
+
+          <div class="hero__acoes">
+            <a class="cta-grande cta-grande--wa" href={wa(mensagemPadrao)} target="_blank" rel="noopener">
+              <span class="cta-grande__ic"><Icon name="whatsapp" size={28} /></span>
+              <span class="cta-grande__txt"><b>Pedir no WhatsApp</b><small>Resposta rápida</small></span>
+              <Icon name="ArrowRight" size={22} class="cta-grande__seta" />
+            </a>
+            <a class="cta-grande cta-grande--fone" href={negocio.telefone.link}>
+              <span class="cta-grande__ic"><Icon name="Phone" size={26} /></span>
+              <span class="cta-grande__txt"><b>Ligar agora</b><small>{negocio.telefone.exibir}</small></span>
+              <Icon name="ArrowRight" size={22} class="cta-grande__seta" />
+            </a>
+          </div>
+          <p class="hero__area"><span class="info__ic"><Icon name="MapPin" size={18} /></span> Entrega em toda Apucarana</p>
+        </div>
+
+        <div class="hero__arte" data-tilt>
+          <div class="hero__disco" aria-hidden="true"></div>
+          <div class="hero__mascote">
+            <Mascote pose={1} width={520} sizes="(min-width: 960px) 520px, 80vw" eager class="flutua" />
+          </div>
+        </div>
+      </div>
+
+      <svg class="onda-baixo" viewBox="0 0 1440 60" preserveAspectRatio="none" aria-hidden="true"><path d="M0 60V30C240 0 480 0 720 22s480 38 720 8v30z" /></svg>
+    </section>
+
+    <!-- PRODUTOS -->
+    <section class="secao" id="produtos" aria-labelledby="produtos-titulo">
+      <div class="in">
+        <div class="cabeca">
+          <h2 id="produtos-titulo" class="titulo">Nossos <span class="destaque">produtos</span></h2>
+          <p class="cabeca__sub">Revenda autorizada <Image src={supergasbras} alt="Supergasbras" height={22} densities={[1, 2]} class="sgb" /></p>
+        </div>
+        <ul class="produtos" role="list">
+          {produtos.map((p, i) => (
+            <li class="produto reveal" style={`--i:${i}`}>
+              <span class={`produto__fundo f${i}`} aria-hidden="true"></span>
+              <div class="produto__img">
+                <Image src={p.img} alt={p.nome} quality={70} widths={[220, 440]} sizes="(min-width: 960px) 220px, 40vw" />
+              </div>
+              <h3>{p.nome}</h3>
+              <a class="produto__btn" href={wa(p.msg)} target="_blank" rel="noopener"><Icon name="whatsapp" size={18} /> Pedir agora</a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
+    <!-- PÚBLICOS -->
+    <section class="secao laranja" aria-labelledby="publicos-titulo">
+      <svg class="onda-cima" viewBox="0 0 1440 60" preserveAspectRatio="none" aria-hidden="true"><path d="M0 0v30c240 30 480 30 720 8S1200 0 1440 30V0z" /></svg>
+      <div class="in">
+        <div class="cabeca cabeca--centro">
+          <h2 id="publicos-titulo" class="titulo">Gás para <span class="destaque">todo tipo</span> de cliente</h2>
+          <p class="cabeca__sub">Disponibilidade de entrega para toda a cidade de Apucarana.</p>
+        </div>
+        <ul class="publicos" role="list">
+          {publicos.map((p, i) => (
+            <li class="publico reveal" style={`--i:${i}`}>
+              <span class={`publico__ic c-${p.cor}`}><Icon name={p.icone} size={24} /></span>
+              <h3>{p.titulo}</h3>
+              <p>{p.texto}</p>
+              <a href={wa(`Olá, André Gás! Quero fazer um pedido para ${p.titulo.toLowerCase()}. `)} target="_blank" rel="noopener">Fazer pedido <Icon name="ArrowRight" size={16} /></a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
+    <!-- COMO PEDIR -->
+    <section class="secao faixa-clara" id="como-pedir" aria-labelledby="como-titulo">
+      <div class="in duas">
+        <div class="arte arte--pedido">
+          <span class="arte__disco" aria-hidden="true"></span>
+          <Mascote pose={3} width={440} sizes="(min-width: 960px) 440px, 70vw" class="balanca" />
+          <span class="notif" aria-hidden="true"><Icon name="whatsapp" size={18} /> Pedido recebido!</span>
+        </div>
+        <div>
+          <h2 id="como-titulo" class="titulo">Pedir é <span class="destaque">simples!</span></h2>
+          <p class="texto-sub">Sem cadastro, sem aplicativo. Do toque até a sua porta em poucos minutos.</p>
+          <ol class="passos" role="list">
+            {passos.map((p, i) => (
+              <li class="passo reveal">
+                <span class="passo__n">{i + 1}</span>
+                <div><h3>{p.titulo}</h3><p>{p.texto}</p></div>
+              </li>
+            ))}
+          </ol>
+          <div class="acoes acoes--linha">
+            <a class="btn btn--laranja" href={wa(mensagemPadrao)} target="_blank" rel="noopener">Fazer pedido</a>
+            <a class="btn btn--fantasma" href={negocio.telefone.link}>Prefiro ligar</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CALCULADORA -->
+    <section class="secao laranja" id="quanto-dura" aria-labelledby="calc-titulo">
+      <span class="bolha b1" aria-hidden="true"></span>
+      <span class="bolha b4" aria-hidden="true"></span>
+      <div class="in calc">
+        <div class="calc__texto">
+          <h2 id="calc-titulo" class="titulo">Quanto dura seu <span class="destaque">botijão P13?</span></h2>
+          <p class="texto-sub">Descubra quando pedir de novo e não fique sem gás no meio do almoço.</p>
+          <form class="calc__form" data-calc onsubmit="return false">
+            <label class="calc__rotulo" for="pessoas">Pessoas em casa <output data-pessoas-out for="pessoas">4</output></label>
+            <input type="range" id="pessoas" name="pessoas" min="1" max="8" value="4" />
+            <fieldset class="seg">
+              <legend class="calc__rotulo">Quanto vocês cozinham?</legend>
+              <label><input type="radio" name="uso" value="0.05" /><span>Pouco</span></label>
+              <label><input type="radio" name="uso" value="0.075" checked /><span>Todo dia</span></label>
+              <label><input type="radio" name="uso" value="0.11" /><span>Almoço e janta</span></label>
+            </fieldset>
+          </form>
+          <p class="nota">Estimativa média. O consumo real varia com o fogão, o forno e os hábitos da casa.</p>
+        </div>
+        <div class="calc__card" aria-live="polite">
+          <div class="cilindro" style="--nivel:.37" data-cilindro><span class="cilindro__gas"></span></div>
+          <div>
+            <p class="calc__dias"><span data-dias>37</span> dias</p>
+            <p class="calc__fim">Comprou hoje? Peça de novo perto de <b data-data>daqui a 5 semanas</b>.</p>
+            <a class="btn btn--wa btn--p" href={wa(pedido('1 botijão P13'))} target="_blank" rel="noopener"><Icon name="whatsapp" size={18} /> Pedir P13</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SOBRE -->
+    <section class="secao" id="quem-somos" aria-labelledby="quem-titulo">
+      <div class="in duas duas--inverte">
+        <div>
+          <h2 id="quem-titulo" class="titulo">Sobre a <span class="destaque">André Gás</span></h2>
+          <p class="texto">O depósito André Gás está presente na vida dos apucaranenses há mais de {negocio.anos} anos. A história começou como Confiança Gás e hoje segue sob a direção do André e da sua esposa, Bruna.</p>
+          <p class="texto">Contamos com entregadores profissionais e treinados na entrega e instalação de botijões, sempre com segurança, compromisso e ética. Qualidade e excelência são as marcas registradas da empresa.</p>
+          <p class="texto">São mais de duas décadas aquecendo o cafezinho e assando os pães de queijo de todas as manhãs em muitas casas da cidade.</p>
+          <dl class="numeros">
+            <div><dd>+{negocio.anos}</dd><dt>anos de casa</dt></div>
+            <div><dd>~{negocio.prazoMin}</dd><dt>min de entrega</dt></div>
+            <div><dd>7</dd><dt>dias por semana</dt></div>
+          </dl>
+        </div>
+        <div class="arte arte--sobre">
+          <span class="arte__disco" aria-hidden="true"></span>
+          <Image class="sobre__foto" src={deposito} alt="Fachada do depósito André Gás em Apucarana" widths={[420, 640, 840]} sizes="(min-width: 960px) 460px, 86vw" />
+          <Image class="sobre__carro" src={caminhonete} alt="Caminhonete de entrega de gás" widths={[260, 520]} sizes="260px" />
+        </div>
+      </div>
+    </section>
+
+    <!-- POR QUE -->
+    <section class="secao laranja porque" aria-labelledby="porque-titulo">
+      <svg class="onda-cima" viewBox="0 0 1440 60" preserveAspectRatio="none" aria-hidden="true"><path d="M0 0v30c240 30 480 30 720 8S1200 0 1440 30V0z" /></svg>
+      <div class="in duas">
+        <div>
+          <h2 id="porque-titulo" class="titulo">Por que comprar com a <span class="destaque">André Gás?</span></h2>
+          <p class="texto-sub">A André Gás prioriza a satisfação total do cliente, com atendimento de qualidade e produto que se adequa às necessidades de cada casa e empresa.</p>
+          <ul class="vantagens" role="list">
+            {vantagens.map((v, i) => (
+              <li class="vantagem reveal" style={`--i:${i}`}>
+                <span class="vantagem__ic"><Icon name={v.icone} size={22} /></span>
+                <div><h3>{v.titulo}</h3><p>{v.texto}</p></div>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div class="porque__arte">
+          <span class="porque__disco" aria-hidden="true"></span>
+          <Mascote pose={2} width={420} sizes="(min-width: 960px) 420px, 70vw" class="corrida" />
+        </div>
+      </div>
+    </section>
+
+    <!-- SEGURANÇA -->
+    <section class="secao secao--curta" id="segurança" aria-labelledby="seg-titulo">
+      <div class="in">
+        <div class="seguranca">
+          <div class="seguranca__arte">
+            <Mascote pose={5} width={340} sizes="(min-width: 900px) 340px, 60vw" class="pulinho" />
+          </div>
+          <div>
+            <p class="selo"><Icon name="ShieldCheck" size={18} /> Dicas de segurança</p>
+            <h2 id="seg-titulo" class="titulo titulo--claro">Escolha o botijão <span class="destaque destaque--claro">dourado</span> para seu gás de cozinha!</h2>
+            <p>O gás que você usa no dia a dia deve ser o mais seguro e confiável possível. Não quer correr riscos? Escolha o douradinho! Veja algumas dicas de segurança.</p>
+            <a class="btn btn--branco" href="https://www.supergasbras.com.br/supergasbras/seguranca" target="_blank" rel="noopener">Confira as dicas <Icon name="ArrowRight" size={18} /></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- LOCALIZAÇÃO -->
+    <section class="secao" id="localizaçao" aria-labelledby="local-titulo">
+      <div class="in duas">
+        <div class="local">
+          <h2 id="local-titulo" class="titulo">Onde <span class="destaque">estamos</span></h2>
+          <address>
+            <span class="info__ic"><Icon name="MapPin" size={18} /></span>
+            <span><b>{negocio.endereco.rua}</b><br />{negocio.endereco.bairro}<br />{negocio.cidade} - {negocio.uf}, CEP {negocio.endereco.cep}</span>
+          </address>
+          <div class="acoes acoes--linha">
+            <a class="btn btn--azul btn--p" href={rotaUrl} target="_blank" rel="noopener"><Icon name="Navigation" size={18} /> Como chegar</a>
+            <a class="btn btn--fantasma btn--p" href={mapsUrl} target="_blank" rel="noopener">Abrir no Maps</a>
+          </div>
+          <div class="local__mascote"><Mascote pose={6} width={260} sizes="260px" class="flutua" /></div>
+        </div>
+        <div class="mapa" data-mapa>
+          <div class="mapa__fake" aria-hidden="true"><span class="mapa__pin"><Icon name="MapPin" size={44} /></span></div>
+          <button class="mapa__btn" type="button" data-mapa-btn><Icon name="Map" size={18} /> Ver mapa interativo</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="secao secao--curta" aria-label="Fazer pedido">
+      <div class="in">
+        <div class="cta">
+          <div class="cta__texto">
+            <h2>Acabou o gás? A gente leva agora.</h2>
+            <p>Entrega em ~{negocio.prazoMin} minutos em toda Apucarana.</p>
+          </div>
+          <div class="cta__btns">
+            <a class="btn btn--branco" href={wa(mensagemPadrao)} target="_blank" rel="noopener"><Icon name="whatsapp" size={20} /> Pedir no WhatsApp</a>
+            <a class="cta__fone" href={negocio.telefone.link}><Icon name="Phone" size={18} /> {negocio.telefone.exibir}</a>
+          </div>
+          <div class="cta__corredor" aria-hidden="true">
+            <Mascote pose={2} width={220} sizes="220px" class="corre" />
+          </div>
+          <div class="cta__agua" aria-hidden="true">
+            <Mascote pose={4} width={200} sizes="200px" class="balanca" />
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="rodape">
+    <div class="in rodape__in">
+      <div class="rodape__empresa">
+        <p class="marca marca--rodape"><span class="marca__andre">André</span><span class="marca__gas">Gás</span></p>
+        <p>A André Gás está sempre buscando o melhor atendimento para seus clientes. Mande dicas, reclamações e outras mensagens para o nosso e-mail.</p>
+        <a class="rodape__mail" href={`mailto:${negocio.email}`}><Icon name="Mail" size={18} /> {negocio.email}</a>
+        <div class="redes">
+          <a href={negocio.instagram.url} target="_blank" rel="noopener" aria-label="Instagram"><Icon name="instagram" size={20} /></a>
+          <a href={negocio.facebook} target="_blank" rel="noopener" aria-label="Facebook"><Icon name="facebook" size={20} /></a>
+          <a href={wa(mensagemPadrao)} target="_blank" rel="noopener" aria-label="WhatsApp"><Icon name="whatsapp" size={20} /></a>
+        </div>
+      </div>
+
+      <div>
+        <h2>Horários</h2>
+        <table class="horarios">
+          <tbody>
+            {[1, 2, 3, 4, 5, 6, 0].map((d) => (
+              <tr data-dia={d}><th scope="row">{horarios[d].dia}</th><td>{hora(horarios[d].abre)} às {hora(horarios[d].fecha)}</td></tr>
+            ))}
+            <tr><th scope="row">Feriados</th><td>{hora(feriados.abre)} às {hora(feriados.fecha)}</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div>
+        <h2>Contato</h2>
+        <ul class="contatos" role="list">
+          <li><a href={wa(mensagemPadrao)} target="_blank" rel="noopener"><Icon name="whatsapp" size={18} /> WhatsApp {negocio.whatsapp.exibir}</a></li>
+          <li><a href={negocio.telefone.link}><Icon name="Phone" size={18} /> Ligar {negocio.telefone.exibir}</a></li>
+          <li><a href={negocio.instagram.url} target="_blank" rel="noopener"><Icon name="instagram" size={18} /> @{negocio.instagram.usuario}</a></li>
+          <li><a href={mapsUrl} target="_blank" rel="noopener"><Icon name="MapPin" size={18} /> {negocio.endereco.rua}, {negocio.cidade} - {negocio.uf}</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="rodape__onda">
+      <div class="in rodape__base">
+        <p>© {ano} André Gás · Apucarana - PR</p>
+        <p>Criado por André Matheus Lima - AM Lima Sites Profissionais e Marketing Digital</p>
+      </div>
+    </div>
+  </footer>
+
+  <a class="fab" href={wa(mensagemPadrao)} target="_blank" rel="noopener" aria-label="Pedir gás pelo WhatsApp">
+    <Icon name="whatsapp" size={28} />
+    <span>Pedir gás</span>
+  </a>
+
+  <script is:inline define:vars={{ H: horarios }}>
+    (() => {
+      const d = document;
+      const fmt = (m) => { const h = Math.floor(m / 60), r = m % 60; return r ? h + 'h' + String(r).padStart(2, '0') : h + 'h'; };
+      const agora = () => {
+        const p = {};
+        new Intl.DateTimeFormat('en-US', { timeZone: 'America/Sao_Paulo', weekday: 'short', hour: 'numeric', minute: 'numeric', hourCycle: 'h23' })
+          .formatToParts(new Date()).forEach((x) => (p[x.type] = x.value));
+        return { dia: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].indexOf(p.weekday), min: +p.hour * 60 + +p.minute };
+      };
+
+      // Selo aberto/fechado e dia de hoje na tabela
+      const status = d.querySelector('[data-status]');
+      const texto = d.querySelector('[data-status-texto]');
+      const atualiza = () => {
+        const { dia, min } = agora();
+        const h = H[dia];
+        let msg, estado;
+        if (min >= h.abre && min < h.fecha) {
+          const falta = h.fecha - min;
+          estado = falta <= 45 ? 'quase' : 'aberto';
+          msg = falta <= 45 ? 'Aberto · fecha em ' + falta + ' min' : 'Aberto agora · até ' + fmt(h.fecha);
+        } else if (min < h.abre) {
+          estado = 'fechado'; msg = 'Fechado · abre hoje às ' + fmt(h.abre);
+        } else {
+          estado = 'fechado'; msg = 'Fechado · abre amanhã às ' + fmt(H[(dia + 1) % 7].abre);
+        }
+        if (status) {
+          texto.textContent = msg;
+          status.dataset.estado = estado;
+          status.hidden = false;
+        }
+        d.querySelectorAll('[data-dia]').forEach((tr) => tr.classList.toggle('hoje', +tr.dataset.dia === dia));
+      };
+      atualiza();
+      setInterval(atualiza, 60000);
+
+      // Calculadora do P13
+      const form = d.querySelector('[data-calc]');
+      if (form) {
+        const out = d.querySelector('[data-pessoas-out]');
+        const dias = d.querySelector('[data-dias]');
+        const data = d.querySelector('[data-data]');
+        const cil = d.querySelector('[data-cilindro]');
+        let atual = 37;
+        const calc = () => {
+          const pessoas = +form.pessoas.value;
+          const uso = +form.querySelector('[name=uso]:checked').value;
+          const alvo = Math.round(13 / (0.05 + pessoas * uso));
+          out.textContent = pessoas;
+          form.pessoas.style.setProperty('--p', ((pessoas - 1) / 7) * 100 + '%');
+          data.textContent = new Date(Date.now() + alvo * 864e5).toLocaleDateString('pt-BR', { day: '2-digit', month: 'long' });
+          cil.style.setProperty('--nivel', Math.min(alvo / 100, 1).toFixed(2));
+          const ini = atual, t0 = performance.now();
+          const passo = (t) => {
+            const k = Math.min((t - t0) / 350, 1);
+            dias.textContent = Math.round(ini + (alvo - ini) * k);
+            if (k < 1) requestAnimationFrame(passo);
+          };
+          requestAnimationFrame(passo);
+          atual = alvo;
+        };
+        form.addEventListener('input', calc);
+        calc();
+      }
+
+      // Mapa só carrega quando pedem
+      const btn = d.querySelector('[data-mapa-btn]');
+      btn && btn.addEventListener('click', () => {
+        const f = d.createElement('iframe');
+        f.src = 'https://maps.google.com/maps?q=' + encodeURIComponent('Rua Rio Pirapó 269, Apucarana PR') + '&ll=-23.5579,-51.49107&z=16&output=embed';
+        f.title = 'Mapa da André Gás';
+        f.loading = 'lazy';
+        d.querySelector('[data-mapa]').replaceChildren(f);
+      });
+
+      // Menu mobile fecha ao escolher um link
+      const menu = d.getElementById('menu');
+      menu && menu.addEventListener('click', (e) => {
+        if (e.target.closest('a') && menu.hidePopover && matchMedia('(max-width: 959px)').matches) menu.hidePopover();
+      });
+
+      // Mascote do hero acompanha o mouse
+      const arte = d.querySelector('[data-tilt]');
+      if (arte && matchMedia('(pointer: fine) and (prefers-reduced-motion: no-preference)').matches) {
+        addEventListener('pointermove', (e) => {
+          const x = e.clientX / innerWidth - 0.5, y = e.clientY / innerHeight - 0.5;
+          arte.style.setProperty('--rx', (y * -8).toFixed(2) + 'deg');
+          arte.style.setProperty('--ry', (x * 12).toFixed(2) + 'deg');
+          arte.style.setProperty('--tx', (x * 14).toFixed(1) + 'px');
+        }, { passive: true });
+      }
+    })();
+  </script>
+</Base>
