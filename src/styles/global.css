@@ -857,3 +857,11 @@ input[type='range']:active::-webkit-slider-thumb { scale: 1.2; }
   .hero__acoes { display: flex; flex-wrap: wrap; }
   .cta-grande { flex: 1 1 auto; }
 }
+.hero__area {
+  display: inline-flex; align-items: center; gap: 10px;
+  margin-top: 22px; padding: 8px 18px 8px 8px;
+  border-radius: 999px; background: rgb(255 255 255 / .22);
+  font-weight: 800; font-size: 1.05rem; color: #fff;
+  animation: entra .6s var(--suave) .4s both;
+}
+.hero__area .info__ic { background: #fff; color: var(--laranja-forte); }

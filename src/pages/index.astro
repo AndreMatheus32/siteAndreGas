@@ -58,7 +58,6 @@ const ano = new Date().getFullYear();
       </a>
       <nav class="nav" id="menu" popover aria-label="Menu principal">
         <a href="#produtos">Produtos</a>
-        <a href="#como-pedir">Como pedir</a>
         <a href="#quem-somos">Sobre</a>
         <a href="#localizaçao">Localização</a>
         <a href="#segurança">Segurança</a>
@@ -80,7 +79,6 @@ const ano = new Date().getFullYear();
 
       <div class="in hero__in">
         <div class="hero__texto">
-          <p class="status" data-status hidden><span class="status__ponto"></span><span data-status-texto></span></p>
           <h1 id="hero-titulo" class="hero__titulo">
             Gás de cozinha <span class="destaque">na sua porta</span> em ~{negocio.prazoMin} minutos
           </h1>
@@ -97,6 +95,7 @@ const ano = new Date().getFullYear();
               <Icon name="ArrowRight" size={22} class="cta-grande__seta" />
             </a>
           </div>
+          <p class="hero__area"><span class="info__ic"><Icon name="MapPin" size={18} /></span> Entrega em toda Apucarana</p>
         </div>
 
         <div class="hero__arte" data-tilt>
@@ -393,9 +392,11 @@ const ano = new Date().getFullYear();
         } else {
           estado = 'fechado'; msg = 'Fechado · abre amanhã às ' + fmt(H[(dia + 1) % 7].abre);
         }
-        texto.textContent = msg;
-        status.dataset.estado = estado;
-        status.hidden = false;
+        if (status) {
+          texto.textContent = msg;
+          status.dataset.estado = estado;
+          status.hidden = false;
+        }
         d.querySelectorAll('[data-dia]').forEach((tr) => tr.classList.toggle('hoje', +tr.dataset.dia === dia));
       };
       atualiza();
